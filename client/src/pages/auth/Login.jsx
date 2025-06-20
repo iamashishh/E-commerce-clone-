@@ -1,7 +1,10 @@
 import CommonForm from '@/components/common/Form'
 import { loginFormControls } from '@/config'
+import { loginUser } from '@/store/auth-slice'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const Authlogin = () => {
 
@@ -10,9 +13,25 @@ const Authlogin = () => {
         email:"",password:""
     })
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const onSubmit = (e) => {
+      e.preventDefault();
+
+      dispatch(loginUser(formData)).then((data) =>{
+        if(data?.payload?.success) {
+          toast("Login successful");
+          // navigate("/shop");
+        }
+        else {
+          toast(data?.payload?.message || "Login failed or user not found", { variant: "destructive" });
+          console.log(data?.payload?.message || "Login failed or user not found");
+        }        
+      })
 
     }
+
 
   return (
     <div className='mx-auto w-full max-w-md space-y-6' >

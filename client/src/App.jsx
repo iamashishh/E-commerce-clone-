@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AuthLayout from './components/auth/Layout'
 import Authlogin from './pages/auth/Login'
@@ -16,11 +16,32 @@ import ShoppingCheckOut from './pages/shopping-view/CheckOut'
 import ShoppingAccount from './pages/shopping-view/Account'
 import CheckAuth from './components/common/Check-Auth'
 import UnAuthPage from './pages/unauth-page'
+import { useDispatch, useSelector } from 'react-redux'
+import { checkAuth } from './store/auth-slice'
 
 const App = () => {
 
-  const isAuthenticated = false; // Replace with actual authentication logic
-  const user =null;
+
+  const {isAuthenticated,user,isloading} = useSelector(state=> state.auth);
+
+const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    dispatch(checkAuth()).then((data) => {
+      console.log(data);
+      
+    })
+
+  }, [dispatch])
+
+  if(isloading){
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+      </div>
+    )
+  }
 
   return (
     <div className='flex flex-col overflow-hidden bg-white ' >
