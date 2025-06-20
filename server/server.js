@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const authroutes = require("./src/routes/auth/auth.routes");
+const adminProductRoutes = require("./src/routes/admin/product.routes");
 
 mongoose.connect("mongodb://localhost:27017/skyflow_Project" ).then(()=>{
     console.log("Connected to MongoDB")
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth",authroutes)
+app.use("/api/admin/products",adminProductRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
