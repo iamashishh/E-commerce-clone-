@@ -5,7 +5,6 @@ import Authlogin from './pages/auth/Login'
 import AuthRegister from './pages/auth/Register'
 import AdminLayout from './components/admin-view/Layout'
 import AdminProducts from './pages/admin-view/Products'
-import AdminOrders from './pages/admin-view/Orders'
 import AdminFeatures from './pages/admin-view/Features'
 import AdminDashboards from './pages/admin-view/Dashboard'
 import ShoppingLayout from './components/shopping-view/Layout'
@@ -18,6 +17,8 @@ import CheckAuth from './components/common/Check-Auth'
 import UnAuthPage from './pages/unauth-page'
 import { useDispatch, useSelector } from 'react-redux'
 import { checkAuth } from './store/auth-slice'
+import AdminOrdersView from './components/admin-view/orders'
+import PaypalReturnPage from './pages/shopping-view/paypal-return'
 
 const App = () => {
 
@@ -29,7 +30,6 @@ const dispatch = useDispatch();
   useEffect(() => {
 
     dispatch(checkAuth()).then((data) => {
-      console.log(data);
       
     })
 
@@ -62,7 +62,7 @@ const dispatch = useDispatch();
 
         } >
           <Route path='products' element={<AdminProducts/>} />
-          <Route path='orders' element={<AdminOrders/>} />
+          <Route path='orders' element={<AdminOrdersView/>} />
           <Route path='features' element={<AdminFeatures/>} />
           <Route path='dashboard' element={<AdminDashboards/>} />
           </Route>
@@ -77,6 +77,7 @@ const dispatch = useDispatch();
          <Route path='listing' element={<ShoppingListing/>} />
          <Route path='checkout' element={<ShoppingCheckOut/>} />
          <Route path='account' element={<ShoppingAccount/>} />
+         <Route path='paypal-return' element={<PaypalReturnPage/>} />
          </Route> 
 
          <Route path='/unauth-page' element={<UnAuthPage/>} />

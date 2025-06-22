@@ -23,6 +23,8 @@ import { logoutUser } from "@/store/auth-slice";
 import { useEffect, useState } from "react";
 // import { fetchCartItems } from "@/store/shop/cart-slice";
 import { Label } from "../ui/label";
+import UserCartWrapper from "./cart-wrapper";
+import { fetchCartItems } from "@/store/shop/cart-slice";
 
 function MenuItems() {
   const navigate = useNavigate();
@@ -66,7 +68,7 @@ function MenuItems() {
 
 function HeaderRightContent() {
   const { user } = useSelector((state) => state.auth);
-  // const { cartItems } = useSelector((state) => state.shopCart);
+  const { cartItems } = useSelector((state) => state.shopCart);
   const [openCartSheet, setOpenCartSheet] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -75,9 +77,9 @@ function HeaderRightContent() {
     dispatch(logoutUser());
   }
 
-  // useEffect(() => {
-  //   dispatch(fetchCartItems(user?.id));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchCartItems(user?.id));
+  }, [dispatch]);
 
   // console.log(cartItems, "sangam");
 
@@ -96,14 +98,14 @@ function HeaderRightContent() {
           </span>
           <span className="sr-only">User cart</span>
         </Button>
-        {/* <UserCartWrapper
+        <UserCartWrapper
           setOpenCartSheet={setOpenCartSheet}
           cartItems={
             cartItems && cartItems.items && cartItems.items.length > 0
               ? cartItems.items
               : []
           }
-        /> */}
+        />
       </Sheet>
 
       <DropdownMenu>

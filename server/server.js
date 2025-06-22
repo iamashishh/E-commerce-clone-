@@ -5,6 +5,11 @@ const cors = require("cors");
 
 const authroutes = require("./src/routes/auth/auth.routes");
 const adminProductRoutes = require("./src/routes/admin/product.routes");
+const shopProductRoutes = require("./src/routes/shop/product.route");
+const cartRoutes = require("./src/routes/shop/cart.route");
+const addressRoutes = require("./src/routes/shop/address.route");
+const orderRoutes = require("./src/routes/shop/order.route");
+const adminOrderRoutes = require("./src/routes/admin/order.routes");
 
 mongoose.connect("mongodb://localhost:27017/skyflow_Project" ).then(()=>{
     console.log("Connected to MongoDB")
@@ -27,7 +32,14 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth",authroutes)
+
 app.use("/api/admin/products",adminProductRoutes)
+app.use("/api/admin/orders",adminOrderRoutes)
+
+app.use("/api/shop/products",shopProductRoutes)
+app.use("/api/shop/cart",cartRoutes)
+app.use("/api/shop/address",addressRoutes)
+app.use("/api/shop/order",orderRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
