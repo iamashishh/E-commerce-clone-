@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { checkAuth } from './store/auth-slice'
 import AdminOrdersView from './components/admin-view/orders'
 import PaypalReturnPage from './pages/shopping-view/paypal-return'
+import SearchProducts from './pages/shopping-view/search'
 
 const App = () => {
 
@@ -46,6 +47,13 @@ const dispatch = useDispatch();
   return (
     <div className='flex flex-col overflow-hidden bg-white ' >
       <Routes>
+
+        <Route path='/' element={
+            <CheckAuth user={user} isAuthenticated={isAuthenticated} >
+            {/* <AuthLayout/> */}
+          </CheckAuth>
+        } ></Route>
+
         <Route path='/auth' element={
           <CheckAuth user={user} isAuthenticated={isAuthenticated} >
             <AuthLayout/>
@@ -78,6 +86,7 @@ const dispatch = useDispatch();
          <Route path='checkout' element={<ShoppingCheckOut/>} />
          <Route path='account' element={<ShoppingAccount/>} />
          <Route path='paypal-return' element={<PaypalReturnPage/>} />
+         <Route path='search' element={<SearchProducts/>} />
          </Route> 
 
          <Route path='/unauth-page' element={<UnAuthPage/>} />

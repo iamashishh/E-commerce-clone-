@@ -27,6 +27,7 @@ function CommonForm({
         element = (
           <Input
             name={getControlItem.name}
+            required
             placeholder={getControlItem.placeholder}
             id={getControlItem.name}
             type={getControlItem.type}

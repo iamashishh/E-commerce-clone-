@@ -10,6 +10,9 @@ const cartRoutes = require("./src/routes/shop/cart.route");
 const addressRoutes = require("./src/routes/shop/address.route");
 const orderRoutes = require("./src/routes/shop/order.route");
 const adminOrderRoutes = require("./src/routes/admin/order.routes");
+const searchProductRoutes = require("./src/routes/shop/search.route");
+const reviewProductRoutes = require("./src/routes/shop/review.route");
+const featureRoutes = require("./src/routes/admin/feature.route");
 
 mongoose.connect("mongodb://localhost:27017/skyflow_Project" ).then(()=>{
     console.log("Connected to MongoDB")
@@ -36,10 +39,15 @@ app.use("/api/auth",authroutes)
 app.use("/api/admin/products",adminProductRoutes)
 app.use("/api/admin/orders",adminOrderRoutes)
 
+app.use("/api/common/feature",featureRoutes)
+
 app.use("/api/shop/products",shopProductRoutes)
 app.use("/api/shop/cart",cartRoutes)
 app.use("/api/shop/address",addressRoutes)
 app.use("/api/shop/order",orderRoutes)
+app.use("/api/shop/search",searchProductRoutes)
+app.use("/api/shop/review",reviewProductRoutes)
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

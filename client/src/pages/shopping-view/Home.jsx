@@ -1,8 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import bannerOne from "../../assets/banner-1.webp";
-import bannerTwo from "../../assets/banner-2.webp";
-import bannerThree from "../../assets/banner-3.webp";
+
 import {
   Airplay,
   BabyIcon,
@@ -28,6 +26,7 @@ import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
  import { toast } from "sonner";
 import { fetchAllFilteredProducts, fetchProductDetails } from "@/store/shop/product-slice";
+import { getFeatureImages } from "@/store/common-slice";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
@@ -50,7 +49,7 @@ function ShoppingHome() {
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
   );
-  // const { featureImageList } = useSelector((state) => state.commonFeature);
+  const { featureImageList } = useSelector((state) => state.commonFeature);
 
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
@@ -90,17 +89,17 @@ function ShoppingHome() {
     });
   }
 
-  // useEffect(() => {
-  //   if (productDetails !== null) setOpenDetailsDialog(true);
-  // }, [productDetails]);
+  useEffect(() => {
+    if (productDetails !== null) setOpenDetailsDialog(true);
+  }, [productDetails]);
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
-  //   }, 15000);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
+    }, 15000);
 
-  //   return () => clearInterval(timer);
-  // }, [featureImageList]);
+    return () => clearInterval(timer);
+  }, [featureImageList]);
 
   useEffect(() => {
     dispatch(
@@ -112,14 +111,14 @@ function ShoppingHome() {
   }, [dispatch]);
 
 
-  // useEffect(() => {
-  //   dispatch(getFeatureImages());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getFeatureImages());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative w-full h-[600px] overflow-hidden">
-        {/* {featureImageList && featureImageList.length > 0
+        {featureImageList && featureImageList.length > 0
           ? featureImageList.map((slide, index) => (
               <img
                 src={slide?.image}
@@ -129,7 +128,7 @@ function ShoppingHome() {
                 } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
               />
             ))
-          : null} */}
+          : null}
         <Button
           variant="outline"
           size="icon"
